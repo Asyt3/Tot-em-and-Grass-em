@@ -221,13 +221,15 @@ height = 32.0
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_animatedSprite")]
 script = ExtResource("1_kpjcp")
 _animatedSprite = NodePath("Sprite2D")
+_jumpHeight = 15.0
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 position = Vector2(0, -8)
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_tdg3f")
-animation = &"idle_back"
+animation = &"idle_front"
+autoplay = "idle_front"
 
 [node name="PlayerAnim" type="AnimationPlayer" parent="Sprite2D"]
 libraries = {

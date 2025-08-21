@@ -3,7 +3,6 @@ using Godot;
 public partial class PlayerMovement : CharacterBody2D
 {
     [Export] private TileMapLayer _tileMap;
-    // Changed from AnimationPlayer to AnimatedSprite2D
     [Export] private AnimatedSprite2D _animatedSprite; 
     [Export] private float _moveDuration = 0.4f; 
     [Export] private float _jumpHeight = 30.0f; 
@@ -11,8 +10,8 @@ public partial class PlayerMovement : CharacterBody2D
 
     private Tween _tween;
     private Timer _moveCooldownTimer;
-    private bool _isMoving = false; // State flag to prevent input during movement
-    private string _lastIdleAnimation = "idle_front"; // Keep track of the last direction
+    private bool _isMoving = false; 
+    private string _lastIdleAnimation = "idle_front"; 
 
     public override void _Ready()
     {
@@ -22,7 +21,6 @@ public partial class PlayerMovement : CharacterBody2D
             SetProcessInput(false);
             return;
         }
-        // Updated null check for the new node type
         if (_animatedSprite == null)
         {
             GD.PrintErr("PlayerMovement: The '_animatedSprite' property is not set.");
@@ -37,7 +35,6 @@ public partial class PlayerMovement : CharacterBody2D
         _moveCooldownTimer.OneShot = true;
         AddChild(_moveCooldownTimer);
         
-        // Play the default animation using the new node
         _animatedSprite?.Play("idle_front");
     }
 
@@ -57,17 +54,33 @@ public partial class PlayerMovement : CharacterBody2D
             Vector2I currentCell = _tileMap.LocalToMap(playerLocalPos);
             
             int chebyshevDistance = Mathf.Max(Mathf.Abs(targetCell.X - currentCell.X), Mathf.Abs(targetCell.Y - currentCell.Y));
-            bool isTargetCellEmpty = _tileMap.GetCellTileData(targetCell) == null;
 
-            if (isTargetCellEmpty || chebyshevDistance != 1)
+            if (chebyshevDistance != 1) return; // Exit if not an adjacent tile
+
+            // --- NEW COLLECTION LOGIC ---
+            // Check if there is grass on the target tile.
+            if (GrassSpawner.GrassPositions.TryGetValue(targetCell, out Grass grass))
             {
-                return;
+                // Collect the grass
+                grass.QueueFree(); // Remove the grass from the scene
+                GrassSpawner.GrassPositions.Remove(targetCell); // Remove it from the dictionary
+                GameUI.GrassCount++; // Increment the UI counter
+                
+                // Optional: Play a collection sound or animation here
+                
+                _moveCooldownTimer.Start(); // Start cooldown even after collecting
+                return; // IMPORTANT: Do not proceed to the movement logic
+            }
+
+            // --- MOVEMENT LOGIC (Only runs if no grass was found) ---
+            bool isTargetCellEmpty = _tileMap.GetCellTileData(targetCell) == null;
+            if (isTargetCellEmpty)
+            {
+                return; // Clicked on an empty tile with no grass
             }
 
             Vector2 targetPosition = _tileMap.ToGlobal(_tileMap.MapToLocal(targetCell));
-            
             HopTo(targetPosition, targetCell - currentCell);
-            
             _moveCooldownTimer.Start();
         }
     }
@@ -76,28 +89,24 @@ public partial class PlayerMovement : CharacterBody2D
     {
         _isMoving = true;
         
-        // --- FLIP LOGIC RE-ADDED ---
-        // Set the horizontal flip based on the X direction of movement.
         if (direction.X != 0)
         {
-            _animatedSprite.FlipH = direction.X < 0; // true for left, false for right
+            _animatedSprite.FlipH = direction.X < 0; 
         }
         else
         {
-            // Ensure the sprite is not flipped for vertical movement (front/back).
             _animatedSprite.FlipH = false;
         }
 
         string jumpAnimation = GetJumpAnimationName(direction);
-        // Play animation on the AnimatedSprite2D
         _animatedSprite?.Play(jumpAnimation);
 
         if (_tween != null && _tween.IsValid())
         {
+            _tween.Finished -= OnHopFinished;
             _tween.Kill();
         }
         _tween = GetTree().CreateTween();
-        
         _tween.Finished += OnHopFinished;
 
         Vector2 startPosition = GlobalPosition;
@@ -116,18 +125,15 @@ public partial class PlayerMovement : CharacterBody2D
 
     private void OnHopFinished()
     {
-        // Play the correct idle animation. The sprite will remain flipped if the last move was left.
         _animatedSprite?.Play(_lastIdleAnimation);
-        _isMoving = false; // Allow movement again
+        _isMoving = false; 
     }
 
     private string GetJumpAnimationName(Vector2I direction)
     {
-        string animName = "jump_front"; // Default value
-        _lastIdleAnimation = "idle_front"; // Default idle
+        string animName = "jump_front"; 
+        _lastIdleAnimation = "idle_front"; 
 
-        // --- FIX: Use an if/else if structure to prevent logic override ---
-        // Logic for determining which animation to play based on direction.
         if (direction.Y < 0) 
         { 
             animName = "jump_back"; 
@@ -138,20 +144,17 @@ public partial class PlayerMovement : CharacterBody2D
             animName = "jump_front"; 
             _lastIdleAnimation = "idle_front"; 
         }
-        // This will only be checked if the Y direction is 0.
         else if (direction.X != 0) 
         { 
             animName = "jump_front"; 
             _lastIdleAnimation = "idle_front"; 
         }
 
-        // Check if the determined animation exists, otherwise fall back to the default.
         if (_animatedSprite.SpriteFrames.HasAnimation(animName))
         {
             return animName;
         }
 
-        // If the specific animation doesn't exist, fall back to the default "jump_front"
         _lastIdleAnimation = "idle_front";
         return "jump_front";
     }

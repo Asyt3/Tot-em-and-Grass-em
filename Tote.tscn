@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmsbii8m3yrn2"]
+
+[ext_resource type="Texture2D" uid="uid://dq1e00bxb0cq" path="res://Assets/Sprites/cf336670-2803-45bf-8a1d-df63478ac4f0_removalai_preview.png" id="2_gtkom"]
+
+[node name="Totem" type="Node2D"]
+
+[node name="Cf336670-2803-45Bf-8a1d-df63478Ac4f0RemovalaiPreview" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_gtkom")
+centered = false
+region_enabled = true
+region_rect = Rect2(315, 63, 69, 156)
