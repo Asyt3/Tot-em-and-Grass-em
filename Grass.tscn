@@ -1,15 +1,15 @@
 [gd_scene load_steps=4 format=3 uid="uid://dvrahms0cxmae"]
 
-[ext_resource type="Texture2D" uid="uid://c6juvekw1dlnm" path="res://Assets/Sprites/grass/grassandflowers7.png" id="1_7oqlf"]
-[ext_resource type="Script" uid="uid://dj0r8wshpo60q" path="res://Grass.cs" id="1_d2gna"]
+[ext_resource type="Texture2D" uid="uid://dahlq2yo0noce" path="res://Assets/Sprites/grass/grassandflowers7.png" id="1_7oqlf"]
+[ext_resource type="Script" uid="uid://scy4jpioxxfi" path="res://Grass.cs" id="1_d2gna"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d2gna"]
-radius = 8.0
 
 [node name="Grass" type="Area2D"]
 script = ExtResource("1_d2gna")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-8, 0)
 shape = SubResource("CircleShape2D_d2gna")
 
 [node name="Grassandflowers7" type="Sprite2D" parent="."]

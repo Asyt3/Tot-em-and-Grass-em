@@ -1,15 +1,13 @@
-[gd_scene load_steps=11 format=4 uid="uid://dkf2cdqukhend"]
+[gd_scene load_steps=10 format=4 uid="uid://dkf2cdqukhend"]
 
 [ext_resource type="Texture2D" uid="uid://bibcpga5o661v" path="res://Assets/Tiles/Tile/Free Isometric Tileset by KyleD/Grass Pack Spritesheet.png" id="1_1egmt"]
 [ext_resource type="Script" uid="uid://drwy566sd2pbd" path="res://Scriptsx/TileWorld.cs" id="1_pgwsg"]
 [ext_resource type="PackedScene" uid="uid://cj4cu5gshsb1h" path="res://Player.tscn" id="2_o6y1r"]
-[ext_resource type="Texture2D" uid="uid://duy3dvxx2tcag" path="res://Assets/Tiles/Tile/Free Isometric Tileset by KyleD/Gemini_Generated_Image_1ke9661ke9661ke9.png" id="2_s5xr6"]
-[ext_resource type="PackedScene" uid="uid://bmsbii8m3yrn2" path="res://Tote.tscn" id="5_21jcm"]
-[ext_resource type="Script" uid="uid://csfwmdf41g85p" path="res://GrassSpawner.cs" id="6_h68fy"]
+[ext_resource type="PackedScene" uid="uid://7srl0ddc81ac" path="res://Tote.tscn" id="5_21jcm"]
+[ext_resource type="Script" uid="uid://3f3u14jh8skt" path="res://GrassSpawner.cs" id="6_h68fy"]
 [ext_resource type="PackedScene" uid="uid://dvrahms0cxmae" path="res://Grass.tscn" id="7_cj0yx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_21jcm"]
-texture = ExtResource("2_s5xr6")
 texture_region_size = Vector2i(512, 440)
 1:2/0 = 0
 2:2/0 = 0
@@ -85,4 +83,3 @@ script = ExtResource("6_h68fy")
 _tileMapPath = NodePath("../TileMap/Layer1")
 _grassScene = ExtResource("7_cj0yx")
 _grassContainer = NodePath("../TileMap/GrassContainer")
-_spawnInterval = 1.0

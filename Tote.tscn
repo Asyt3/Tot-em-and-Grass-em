@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://bmsbii8m3yrn2"]
+[gd_scene load_steps=2 format=3 uid="uid://7srl0ddc81ac"]
 
-[ext_resource type="Texture2D" uid="uid://dq1e00bxb0cq" path="res://Assets/Sprites/cf336670-2803-45bf-8a1d-df63478ac4f0_removalai_preview.png" id="2_gtkom"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/cf336670-2803-45bf-8a1d-df63478ac4f0_removalai_preview.png" id="2_gtkom"]
 
 [node name="Totem" type="Node2D"]
 

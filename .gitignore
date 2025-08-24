@@ -1,3 +1,29 @@
-# Godot 4+ specific ignores
+# Godot-specific ignores
 .godot/
-/android/
+!.godot/icon.svg
+!.godot/project_metadata.cfg
+
+# Mono-specific ignores for C# projects
+.mono/
+bin/
+obj/
+*.csproj.user
+*.sln.user
+
+# Large binary/debug files
+*.so
+*.pdb
+
+# Export templates
+export_presets.cfg
+*.pck
+*.zip
+*.exe
+*.apk
+
+# Asset Library
+.import/
+
+# User-specific settings that shouldn't be committed
+.vscode/
+.vs/
