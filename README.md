@@ -1,3 +1,3 @@
-Nothing here yet.
+Nothing here yet...
 
-Come after completing some more quests.
+Come back after completing some more quests.
