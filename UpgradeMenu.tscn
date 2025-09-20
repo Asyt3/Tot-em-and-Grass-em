@@ -1,0 +1,85 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfxlcafty8qsc"]
+
+[ext_resource type="Script" uid="uid://dynpxpkj3xsat" path="res://UpgradeMenu.cs" id="1_ntgkq"]
+[ext_resource type="FontFile" uid="uid://dqsb5lvdrtrkp" path="res://HomeVideo-BLG6G.ttf" id="2_s63oj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_s63oj"]
+font = ExtResource("2_s63oj")
+font_size = 18
+outline_size = 2
+outline_color = Color(0.458824, 1, 0.619608, 1)
+shadow_size = 3
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Theme" id="Theme_s63oj"]
+default_font = ExtResource("2_s63oj")
+default_font_size = 79
+Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+
+[node name="UpgradeMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -2.0
+offset_top = -68.0
+offset_right = 38.0
+offset_bottom = -28.0
+script = ExtResource("1_ntgkq")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 451.0
+offset_top = 156.0
+offset_right = 491.0
+offset_bottom = 196.0
+scale = Vector2(17.3136, 22.6232)
+
+[node name="Label" type="Label" parent="Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 2.65687
+offset_top = 1.59128
+offset_right = 132.657
+offset_bottom = 24.5913
+scale = Vector2(0.260961, 0.260961)
+text = "Totem Spirit"
+label_settings = SubResource("LabelSettings_s63oj")
+
+[node name="SpawnRateButton" type="Button" parent="Panel"]
+texture_filter = 5
+layout_mode = 0
+offset_left = 2.42584
+offset_top = 8.84047
+offset_right = 637.426
+offset_bottom = 95.8405
+scale = Vector2(0.0428737, 0.0428737)
+theme = SubResource("Theme_s63oj")
+theme_override_fonts/font = ExtResource("2_s63oj")
+theme_override_font_sizes/font_size = 55
+text = "x2 Grass spawn rate"
+
+[node name="SpawnRateButton2" type="Button" parent="Panel"]
+texture_filter = 5
+layout_mode = 0
+offset_left = 2.42584
+offset_top = 15.1172
+offset_right = 637.426
+offset_bottom = 102.117
+scale = Vector2(0.0428737, 0.0428737)
+theme = SubResource("Theme_s63oj")
+theme_override_fonts/font = ExtResource("2_s63oj")
+theme_override_font_sizes/font_size = 55
+text = "x2 Collect Area"
+
+[node name="SpawnRateButton3" type="Button" parent="Panel"]
+texture_filter = 5
+layout_mode = 0
+offset_left = 21.1972
+offset_top = 35.804
+offset_right = 656.197
+offset_bottom = 122.804
+scale = Vector2(0.0273174, 0.0273174)
+theme = SubResource("Theme_s63oj")
+text = "Close"
+
+[connection signal="pressed" from="Panel/SpawnRateButton" to="." method="_on_spawn_rate_button_pressed"]
+[connection signal="pressed" from="Panel/SpawnRateButton3" to="." method="OnCloseButtonPressed"]

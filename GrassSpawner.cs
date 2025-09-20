@@ -41,25 +41,20 @@ public partial class GrassSpawner : Node
     private void SpawnGrass()
     {
         if (GrassPositions.Count >= _maxGrassCount) return;
-
-        var usedCells = _tileMap.GetUsedCells();
+        var usedCells = _tileMap.GetUsedCells().Where(c => _tileMap.GetCellSourceId(c) != -1).ToList();
         var emptyCells = usedCells.Where(cell => !GrassPositions.ContainsKey(cell)).ToList();
-
         if (emptyCells.Count == 0) return;
 
         Vector2I randomCell = emptyCells[_rng.RandiRange(0, emptyCells.Count - 1)];
         
         Grass grassInstance = _grassScene.Instantiate<Grass>();
         grassInstance.Cell = randomCell;
-
-        // --- POSITIONING FIX ---
-        // Place grass at the top-left corner of the tile, just like the player.
-        // This ensures perfect consistency.
-        Vector2 worldPosition = _tileMap.ToGlobal(_tileMap.MapToLocal(randomCell));
         
+        Vector2 worldPosition = _tileMap.ToGlobal(_tileMap.MapToLocal(randomCell));
         grassInstance.GlobalPosition = worldPosition;
         _grassContainer.AddChild(grassInstance);
         
         GrassPositions.Add(randomCell, grassInstance);
     }
 }
+

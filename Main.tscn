@@ -1,14 +1,95 @@
-[gd_scene load_steps=3 format=3 uid="uid://8tlsg81no0s4"]
+[gd_scene load_steps=11 format=3 uid="uid://8tlsg81no0s4"]
 
 [ext_resource type="Script" uid="uid://offcq35le78y" path="res://Scriptsx/main.gd" id="1_cm0pq"]
 [ext_resource type="PackedScene" uid="uid://dkf2cdqukhend" path="res://Tile_World.tscn" id="1_glv2v"]
+[ext_resource type="Texture2D" uid="uid://d2n0jdugf00dl" path="res://Assets/Gemini_Generated_Image_g9c34xg9c34xg9c3.png" id="2_03owx"]
+[ext_resource type="Script" uid="uid://dxjtasd33gp8q" path="res://GrassCollector.cs" id="2_trn2v"]
+[ext_resource type="PackedScene" uid="uid://7srl0ddc81ac" path="res://Tote.tscn" id="4_fos0i"]
+[ext_resource type="Script" uid="uid://dodj5hi2fv7oo" path="res://Scriptsx/UIManager.cs" id="5_lgr22"]
+[ext_resource type="PackedScene" uid="uid://cjcg8ejbl1qp4" path="res://HUD.tscn" id="6_lgr22"]
+[ext_resource type="PackedScene" uid="uid://dfxlcafty8qsc" path="res://UpgradeMenu.tscn" id="7_lgr22"]
+[ext_resource type="Shader" uid="uid://dggyjsvvlvpcu" path="res://ToziSTava mai.gdshader" id="8_trn2v"]
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_03owx"]
+shader = ExtResource("8_trn2v")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.117
+shader_parameter/scanlines_width = 0.25
+shader_parameter/grille_opacity = 0.202
+shader_parameter/resolution = Vector2(420, 240)
+shader_parameter/pixelate = false
+shader_parameter/roll = true
+shader_parameter/roll_speed = 0.25
+shader_parameter/roll_size = 13.556
+shader_parameter/roll_variation = 1.693
+shader_parameter/distort_intensity = 0.003
+shader_parameter/noise_opacity = 0.108
+shader_parameter/noise_speed = 0.1
+shader_parameter/static_noise_intensity = 0.022
+shader_parameter/aberration = 0.012
+shader_parameter/brightness = 1.339
+shader_parameter/discolor = false
+shader_parameter/warp_amount = 0.022
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.235
+shader_parameter/vignette_opacity = 0.52
+
+[node name="Main" type="Node2D"]
 script = ExtResource("1_cm0pq")
 
-[node name="TileMap" parent="." instance=ExtResource("1_glv2v")]
-position = Vector2(-136, -40)
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -874.0
+offset_top = -505.0
+offset_right = 534.0
+offset_bottom = 679.0
+scale = Vector2(1.385, 0.945)
+texture = ExtResource("2_03owx")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+top_level = true
+material = SubResource("ShaderMaterial_03owx")
+offset_left = -880.0
+offset_top = -493.0
+offset_right = 1840.0
+offset_bottom = 894.0
+scale = Vector2(0.714763, 0.794802)
+
+[node name="HUD" parent="ColorRect" instance=ExtResource("6_lgr22")]
+offset = Vector2(-241.425, 500)
+scale = Vector2(2.905, 2.905)
+transform = Transform2D(2.905, 0, 0, 2.905, -241.425, 500)
+
+[node name="GrassCollector" type="Node2D" parent="." node_paths=PackedStringArray("_tileWorldInstance")]
+scale = Vector2(0.998558, 1)
+script = ExtResource("2_trn2v")
+_tileWorldInstance = NodePath("../TileMap")
+_rippleDelayPerTile = 0.135
 
 [node name="Camera2D" type="Camera2D" parent="."]
-scale = Vector2(3.55292, 0.637163)
-zoom = Vector2(3.955, 3.955)
+position = Vector2(86, 40)
+scale = Vector2(1.147, 1.147)
+
+[node name="TileMap" parent="." instance=ExtResource("1_glv2v")]
+position = Vector2(-233, -24)
+scale = Vector2(2.83341, 2.83341)
+
+[node name="Totem" parent="." instance=ExtResource("4_fos0i")]
+position = Vector2(83, -227)
+scale = Vector2(2.61, 2.61)
+
+[node name="UIManager" type="CanvasLayer" parent="."]
+script = ExtResource("5_lgr22")
+
+[node name="UpgradeMenu" parent="UIManager" instance=ExtResource("7_lgr22")]
+offset_left = 772.0
+offset_top = 135.0
+offset_right = 772.0
+offset_bottom = 135.0
+scale = Vector2(0.587421, 0.587421)
+metadata/_edit_use_anchors_ = true
+
+[node name="TileMap3" parent="." instance=ExtResource("1_glv2v")]
+visible = false
+position = Vector2(-136, -40)
+
+[connection signal="Interacted" from="Totem" to="UIManager" method="ShowTotemMenu"]

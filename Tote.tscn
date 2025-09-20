@@ -1,13 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://7srl0ddc81ac"]
+[gd_scene load_steps=4 format=3 uid="uid://7srl0ddc81ac"]
 
-[ext_resource type="Texture2D" path="res://Assets/Sprites/cf336670-2803-45bf-8a1d-df63478ac4f0_removalai_preview.png" id="2_gtkom"]
+[ext_resource type="Script" uid="uid://cjeill7qm67u0" path="res://TotemInteraction.cs" id="1_gtkom"]
+[ext_resource type="Texture2D" uid="uid://mpk1xl0o8s0q" path="res://Assets/Sprites/cf336670-2803-45bf-8a1d-df63478ac4f0_removalai_preview.png" id="2_gtkom"]
 
-[node name="Totem" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y5jcu"]
+size = Vector2(20, 47)
+
+[node name="Totem" type="Area2D"]
+script = ExtResource("1_gtkom")
 
 [node name="Cf336670-2803-45Bf-8a1d-df63478Ac4f0RemovalaiPreview" type="Sprite2D" parent="."]
 texture_filter = 1
+position = Vector2(-17, -38)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_gtkom")
 centered = false
 region_enabled = true
 region_rect = Rect2(315, 63, 69, 156)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 14.5)
+shape = SubResource("RectangleShape2D_y5jcu")

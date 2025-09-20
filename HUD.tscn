@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://cjcg8ejbl1qp4"]
+
+[ext_resource type="Script" uid="uid://cl4xeycioooy5" path="res://Scriptsx/HUD.cs" id="1_k5de2"]
+[ext_resource type="FontFile" uid="uid://dqsb5lvdrtrkp" path="res://HomeVideo-BLG6G.ttf" id="2_efote"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vow1y"]
+font = ExtResource("2_efote")
+font_size = 26
+font_color = Color(0.592157, 0.921569, 0.560784, 1)
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 3
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(4.585, 1)
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_k5de2")
+
+[node name="GrassCountLabel" type="Label" parent="."]
+texture_filter = 1
+offset_left = 108.0
+offset_top = 118.0
+offset_right = 233.0
+offset_bottom = 142.0
+scale = Vector2(0.583492, 0.583492)
+text = "Grass: 0"
+label_settings = SubResource("LabelSettings_vow1y")

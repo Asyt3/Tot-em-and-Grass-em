@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://o3l0aifflbrw"]
+
+[ext_resource type="Shader" uid="uid://dmf23sp60y6ad" path="res://CRT with lum.gdshader" id="1_tw30o"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_tw30o"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b6hrd"]
+resource_local_to_scene = true
+shader = ExtResource("1_tw30o")
+shader_parameter/tex = SubResource("ViewportTexture_tw30o")
+shader_parameter/mask_type = 3
+shader_parameter/curve = 0.0
+shader_parameter/sharpness = 0.667
+shader_parameter/color_offset = 2.375e-08
+shader_parameter/mask_brightness = 1.0
+shader_parameter/scanline_brightness = 0.708
+shader_parameter/min_scanline_thickness = 0.5
+shader_parameter/aspect = 0.75
+shader_parameter/wobble_strength = 0.0
+
+[node name="Node2D" type="ColorRect"]
+material = SubResource("ShaderMaterial_b6hrd")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.996498)
+color = Color(0, 0, 0, 1)
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(240, 240)

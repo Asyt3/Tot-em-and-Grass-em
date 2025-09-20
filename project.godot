@@ -15,6 +15,10 @@ run/main_scene="uid://8tlsg81no0s4"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameManager="*res://Scriptsx/GameManager.cs"
+
 [display]
 
 window/size/viewport_width=1680
@@ -23,6 +27,10 @@ window/size/viewport_height=1080
 [dotnet]
 
 project/assembly_name="Iso-Totem"
+
+[editor]
+
+version_control/autoload_on_startup=true
 
 [editor_plugins]
 

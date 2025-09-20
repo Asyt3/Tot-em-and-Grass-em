@@ -220,6 +220,9 @@ height = 32.0
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_animatedSprite")]
 script = ExtResource("1_kpjcp")
+_moveDuration = null
+_jumpHeight = null
+_moveCooldown = null
 _animatedSprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
